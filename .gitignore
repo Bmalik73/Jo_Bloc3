@@ -1,0 +1,20 @@
+# Environnement Virtuel
+venv/
+env/
+
+# Fichier de variables d'environnement
+.env
+
+# Base de données SQLite
+db.sqlite3
+
+# Fichiers compilés
+__pycache__/
+*.pyc
+
+
+# Fichiers de configuration IDE
+
+*.log
+.idea/
+.vscode/
