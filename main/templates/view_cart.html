@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-2xl font-bold mb-4">Votre Panier</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% if tickets or offers %}
+        {% for ticket in tickets %}
+        <div class="border border-gray-300 rounded-lg overflow-hidden shadow-md">
+            <img class="w-full h-40 object-cover object-center" src="{{ ticket.offer.image.url }}" alt="{{ ticket.offer.offer_type }}">
+            <div class="p-4">
+                <h3 class="text-lg font-semibold mb-2">{{ ticket.offer.offer_type|capfirst }}</h3>
+                <p class="text-gray-700 mb-2">Prix: {{ ticket.offer.price }}€</p>
+                <div class="flex justify-between items-center">
+                    <a href="{% url 'remove_from_cart' ticket.id %}" class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash"></i> Retirer
+                    </a>
+                    <a href="{% url 'add_to_cart' ticket.offer.id %}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">
+                        <i class="fas fa-cart-plus mr-2"></i> Ajouter un autre
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for offer in offers %}
+        <div class="border border-gray-300 rounded-lg overflow-hidden shadow-md">
+            <img class="w-full h-40 object-cover object-center" src="{{ offer.image.url }}" alt="{{ offer.offer_type }}">
+            <div class="p-4">
+                <h3 class="text-lg font-semibold mb-2">{{ offer.offer_type }}</h3>
+                <p class="text-gray-700 mb-2">Prix: {{ offer.price }}€</p>
+                <div class="flex justify-between items-center">
+                    <a href="{% url 'remove_from_cart' offer.id %}" class="text-red-600 hover:text-red-800">
+                        <i class="fas fa-trash"></i> Retirer
+                    </a>
+                    <a href="{% url 'add_to_cart' offer.id %}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">
+                        <i class="fas fa-cart-plus mr-2"></i> Ajouter un autre
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-span-3 flex justify-end mt-4">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'checkout' %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                <i class="fas fa-shopping-cart"></i> Procéder au Paiement
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                <i class="fas fa-sign-in-alt"></i> Connectez-vous pour payer
+            </a>
+            {% endif %}
+        </div>
+        {% else %}
+        <p class="text-gray-600 mt-4">Votre panier est vide.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
