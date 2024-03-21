@@ -26,7 +26,7 @@ class OfferAdmin(admin.ModelAdmin):
 
     def get_offer_type(self, obj):
         return obj.offer_type.name
-    get_offer_type.admin_order_field = 'offer_type__name'  # Permet de trier par type d'offre
+    get_offer_type.admin_order_field = 'offer_type__name'  
     get_offer_type.short_description = 'Type d\'offre'
 
     def image_display(self, obj):
