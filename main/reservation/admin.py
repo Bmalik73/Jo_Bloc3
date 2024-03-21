@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Offer, Ticket, Cart, Transaction
+from .models import User, Offer, Ticket, Cart, Transaction, OfferType
 from django.utils.safestring import mark_safe
 
 
@@ -13,19 +13,27 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(User, UserAdmin)
 
 # Admin pour Offer
+@admin.register(OfferType)
+class OfferTypeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ['name']
+
+@admin.register(Offer)
 class OfferAdmin(admin.ModelAdmin):
-    list_display = ('offer_type', 'price', 'availability', 'start_date', 'end_date', 'image_display')
-    list_filter = ('offer_type', 'start_date', 'end_date')
-    search_fields = ('offer_type',)
-    readonly_fields = ('image_display',)
+    list_display = ('get_offer_type', 'price', 'availability', 'start_date', 'end_date', 'image_display')
+    list_filter = ('offer_type__name', 'start_date', 'end_date')
+    search_fields = ('offer_type__name',)
+
+    def get_offer_type(self, obj):
+        return obj.offer_type.name
+    get_offer_type.admin_order_field = 'offer_type__name'  # Permet de trier par type d'offre
+    get_offer_type.short_description = 'Type d\'offre'
 
     def image_display(self, obj):
         if obj.image:
             return mark_safe(f'<img src="{obj.image.url}" width="150" height="150" />')
         return "No Image"
     image_display.short_description = 'Image'
-
-admin.site.register(Offer, OfferAdmin)
 
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('offer', 'ticket_key', 'purchase_key', 'qr_code_display', 'is_valid', 'use_date')

@@ -30,14 +30,15 @@ class User(AbstractUser):
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
+class OfferType(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
 # Offer class to represent different types of tickets
 class Offer(models.Model):
-    OFFER_TYPE_CHOICES = [
-        ('solo', _('Solo')),
-        ('duo', _('Duo')),
-        ('family', _('Familiale')),
-    ]
-    offer_type = models.CharField(max_length=10, choices=OFFER_TYPE_CHOICES)
+    offer_type = models.ForeignKey(OfferType, on_delete=models.CASCADE)
     description = models.TextField()
     price = models.FloatField()
     availability = models.IntegerField(default=0)
@@ -46,7 +47,7 @@ class Offer(models.Model):
     image = models.ImageField(upload_to='offers/', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.get_offer_type_display()} - {self.price}€"
+        return f"{self.offer_type.name} - {self.price}€"
 
 # Ticket class
 class Ticket(models.Model):
