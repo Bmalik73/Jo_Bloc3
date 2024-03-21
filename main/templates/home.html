@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Jeux Olympiques Paris 2024{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-10">
+    <section class="text-center">
+        <h1 class="text-4xl font-bold">Bienvenue sur JO 2024 Paris</h1>
+        <p class="text-xl mt-5">Votre plateforme officielle pour toutes les informations et réservations liées aux Jeux Olympiques de Paris 2024.</p>
+    </section>
+
+    <section class="mt-10">
+        <div class="flex justify-around">
+            <a href="{% url 'list_offers' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Voir les billets disponibles
+            </a>
+            <a href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Découvrir les événements
+            </a>
+            <a href="#" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                Informations pratiques
+            </a>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

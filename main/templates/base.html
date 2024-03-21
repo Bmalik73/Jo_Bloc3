@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JO 2024 Paris</title>
+    {% load static %}
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'home' %}" class="text-white text-lg font-bold">Mon Logo</a>
+            <div class="flex items-center">
+                <a href="{% url 'home' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Accueil</a>
+                <a href="{% url 'list_offers' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Billeterie</a>
+                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Performance</a>
+                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                <a href="{% url 'view_cart' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Mon Panier</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'account' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Mon Compte</a>
+                    <a href="{% url 'logout' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Déconnexion</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Connexion</a>
+                    <a href="{% url 'register' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Inscription</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main class="container py-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        © 2024 Mon Site. Tous droits réservés.
+    </footer>
+    <script src="{% static 'js/script.js' %}" defer data-deferred="1"></script>
+</body>
+</html>
