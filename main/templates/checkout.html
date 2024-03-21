@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-2xl font-bold mb-4">Procéder au Paiement</h2>
+    <p class="text-lg mb-4">Total à payer : {{ total_amount }}€</p>
+
+    <form method="post" action="{% url 'process_payment' %}" class="flex items-center">
+        {% csrf_token %}
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md flex items-center">
+            <i class="fas fa-credit-card mr-2"></i> Payer
+        </button>
+    </form>
+</div>
+{% endblock %}

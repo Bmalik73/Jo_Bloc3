@@ -60,8 +60,9 @@ class Ticket(models.Model):
     event_location = models.CharField(max_length=255, blank=True, null=True)
     seat_info = models.CharField(max_length=100, blank=True, null=True)
 
-    def __str__(self):
-        return f"Ticket {self.offer.get_offer_type_display()} - Key: {self.ticket_key}"
+def __str__(self):
+    return f"Ticket {self.offer.offer_type} - Key: {self.ticket_key}"
+
 
 
 def default_expires_at():
