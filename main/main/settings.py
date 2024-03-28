@@ -67,7 +67,7 @@ AUTH_USER_MODEL = 'reservation.User'
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # Charge les variables d'environnement depuis '.env'
+load_dotenv() 
 
 DATABASES = {
     'default': {
@@ -79,7 +79,10 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'),
     }
 }
-
+import environ
+env = environ.Env()
+environ.Env.read_env() 
+NEWS_API_KEY = env('NEWS_API_KEY')
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

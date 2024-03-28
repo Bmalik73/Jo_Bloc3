@@ -10,34 +10,34 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body>
-    <nav class="bg-gray-800 p-4">
+<body class="font-sans">
+    <nav style="background-color: #0777b0;" class="p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'home' %}" class="text-white text-lg font-bold">Mon Logo</a>
-            <div class="flex items-center">
-                <a href="{% url 'home' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Accueil</a>
-                <a href="{% url 'list_offers' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Billeterie</a>
-                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Performance</a>
-                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
-                <a href="{% url 'view_cart' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Mon Panier</a>
+            <img class="logo h-14 w-auto" src="{% static 'images/logoJO.png' %}" alt="Logo JO 2024 Paris">
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'home' %}" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Accueil</a>
+                <a href="{% url 'list_offers' %}" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Billeterie</a>
+                <a href="#" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Performance</a>
+                <a href="#" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Contact</a>
+                <a href="{% url 'view_cart' %}" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Mon Panier</a>
 
                 {% if user.is_authenticated %}
-                    <a href="{% url 'account' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Mon Compte</a>
-                    <a href="{% url 'logout' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Déconnexion</a>
+                    <a href="{% url 'account' %}" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Mon Compte</a>
+                    <a href="{% url 'logout' %}" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Déconnexion</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Connexion</a>
-                    <a href="{% url 'register' %}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Inscription</a>
+                    <a href="{% url 'login' %}" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Connexion</a>
+                    <a href="{% url 'register' %}" class="text-white hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Inscription</a>
                 {% endif %}
             </div>
         </div>
     </nav>
-    <main class="container py-4">
+    <main class="container mx-auto py-4">
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+    <footer class="bg-blue-800 text-white text-center p-4 mt-8">
         © 2024 Mon Site. Tous droits réservés.
     </footer>
-    <script src="{% static 'js/script.js' %}" defer data-deferred="1"></script>
 </body>
 </html>
+

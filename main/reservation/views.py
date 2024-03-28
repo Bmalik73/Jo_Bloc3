@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm
 from .models import Offer, Cart, Ticket, Transaction
 import uuid
+from django.conf import settings
+import requests
 import qrcode
 from io import BytesIO
 from django.core.files import File
@@ -22,6 +24,8 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+
 
 @login_required
 def account(request):

@@ -26,6 +26,7 @@ urlpatterns = [
     path('payment-confirmation/', reservation_views.payment_confirmation, name='payment_confirmation'),
     path('my_orders/', reservation_views.my_orders, name='my_orders'),
     path('update_cart/', reservation_views.update_cart, name='update_cart'),
+    path('reservation/', include('reservation.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
