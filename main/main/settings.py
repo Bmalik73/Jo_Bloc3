@@ -82,7 +82,7 @@ DATABASES = {
 import environ
 env = environ.Env()
 environ.Env.read_env() 
-NEWS_API_KEY = env('NEWS_API_KEY')
+#NEWS_API_KEY = env('NEWS_API_KEY')
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body class="font-sans">
+<body class="font-sans flex flex-col min-h-screen">
     <nav style="background-color: #0777b0;" class="p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <img class="logo h-14 w-auto" src="{% static 'images/logoJO.png' %}" alt="Logo JO 2024 Paris">
@@ -31,13 +31,14 @@
             </div>
         </div>
     </nav>
-    <main class="container mx-auto py-4">
+    <main class="container mx-auto py-4 flex-grow">
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="bg-blue-800 text-white text-center p-4 mt-8">
+    <footer style="background-color: #0777b0;" class="text-white text-center p-4 mt-auto">
         © 2024 Mon Site. Tous droits réservés.
     </footer>
+    
 </body>
 </html>
 

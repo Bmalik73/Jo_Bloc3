@@ -172,7 +172,6 @@ def checkout(request):
     else:
         return redirect('login')
     
-@login_required
 def remove_from_cart(request, ticket_id):
     if request.user.is_authenticated:
         cart, _ = Cart.objects.get_or_create(user=request.user)
