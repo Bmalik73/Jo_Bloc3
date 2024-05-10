@@ -16,6 +16,37 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'detailed': {
+            'format': '{asctime} {levelname} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'detailed',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'django.log',
+            'formatter': 'detailed',
+        },
+    },
+    'loggers': {
+        '': {  # Root logger
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        },
+    },
+}
+
+
 
 # Application definition
 
