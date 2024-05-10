@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Profil de {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold mb-2">Profil de {{ user.username }}</h2>
+    <p class="font-medium">Email: <span class="text-gray-600">{{ user.email }}</span></p>
+    <p class="font-medium">Téléphone: <span class="text-gray-600">{{ user.phone_number }}</span></p>
+    <p class="font-medium">Adresse: <span class="text-gray-600">{{ user.address }}</span></p>
+</div>
+{% endblock %}

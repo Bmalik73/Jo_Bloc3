@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Mes Commandes{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Mes Commandes</h2>
+    {% if transactions %}
+        {% for transaction in transactions %}
+        <div class="mb-6 p-6 bg-gray-100 rounded-lg shadow">
+            <h3 class="text-lg font-semibold text-gray-700">Transaction du {{ transaction.transaction_date|date:"d/m/Y" }}</h3>
+            <ul>
+                {% for ticket in transaction.tickets.all %}
+                <li class="flex items-center justify-between p-2 hover:bg-gray-50 rounded-md">
+                    <div class="flex-grow">
+                        <p class="text-md text-gray-600">{{ ticket.offer.description }}</p>
+                    </div>
+                    {% if ticket.qr_code %}
+                    <div class="flex-shrink-0 ml-4">
+                        <img src="{{ ticket.qr_code.url }}" alt="QR Code" class="h-20 w-20 object-cover rounded">
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-700">Aucune transaction à afficher.</p>
+    {% endif %}
+</div>
+{% endblock %}
