@@ -51,7 +51,7 @@ def account(request):
     return render(request, 'account.html', {'form': form, 'editing': editing})
 
 def list_offers(request):
-    offers = Offer.objects.all()  # Récupère toutes les offres
+    offers = Offer.objects.all()  
     return render(request, 'list_offers.html', {'offers': offers})
 
 

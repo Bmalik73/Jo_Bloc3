@@ -46,8 +46,8 @@ LOGGING = {
     },
 }
 
-
-
+LOGIN_REDIRECT_URL = '/home/' 
+LOGOUT_REDIRECT_URL = '/home/'
 # Application definition
 
 INSTALLED_APPS = [
