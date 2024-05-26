@@ -1,4 +1,5 @@
 from .forms import CustomUserCreationForm
+from django.core.paginator import Paginator
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -16,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 logger = logging.getLogger(__name__)
 
 
@@ -57,32 +59,40 @@ def list_offers(request):
 
 def view_cart(request):
     context = {}
+    cart_count = 0
     if request.user.is_authenticated:
         cart, _ = Cart.objects.get_or_create(user=request.user)
         context['tickets'] = cart.tickets.all()
         context['total_amount'] = calculate_total_amount(context['tickets'])
+        cart_count = cart.tickets.count()
     else:
         offer_ids = request.session.get('cart', [])
         offers = Offer.objects.filter(id__in=offer_ids)
         context['offers'] = offers
         context['total_amount'] = sum(offer.price for offer in offers)
+        cart_count = len(offers)
 
+    context['cart_count'] = cart_count
     return render(request, 'view_cart.html', context)
+
 
 def add_to_cart(request, offer_id):
     offer = get_object_or_404(Offer, id=offer_id)
 
     if request.user.is_authenticated:
         cart, _ = Cart.objects.get_or_create(user=request.user)
-        unique_ticket_key = str(uuid.uuid4())  
+        unique_ticket_key = str(uuid.uuid4())
         ticket = Ticket.objects.create(offer=offer, ticket_key=unique_ticket_key)
         cart.tickets.add(ticket)
+        cart_count = cart.tickets.count()
     else:
         cart = request.session.get('cart', [])
         cart.append(offer_id)
         request.session['cart'] = cart
+        cart_count = len(cart)
 
-    return redirect('list_offers')
+    return JsonResponse({'success': True, 'cart_count': cart_count})
+
 
 @login_required
 def update_cart(request, ticket_id, quantity):
@@ -121,7 +131,7 @@ def generate_qr_code(final_key):
 
 @login_required
 def finalize_purchase(request):
-    logger.info("Debug: Entering my_function")
+    logger.info("Debug: Entering finalize_purchase")
     cart, created = Cart.objects.get_or_create(user=request.user)
     if not cart.tickets.exists():
         logger.info("Tentative de finalisation d'achat avec un panier vide.")
@@ -152,10 +162,10 @@ def finalize_purchase(request):
             cart.tickets.clear()
             return redirect('payment_confirmation')
     except Exception as e:
-        logger.info("Exception lors de la finalisation de l'achat.")
-        logger.info("Debug: Exiting my_function")
+        logger.exception("Exception lors de la finalisation de l'achat.")
         return render(request, 'error.html', {'message': str(e)})
 
+    logger.info("Debug: Exiting finalize_purchase")
     return render(request, 'purchase_confirmation.html')
 
 def calculate_total_amount(tickets):
@@ -171,27 +181,31 @@ def process_payment(request):
         cart, _ = Cart.objects.get_or_create(user=request.user)
         total_amount = calculate_total_amount(cart.tickets.all())
 
-        transaction = Transaction.objects.create(
-            user=request.user,
-            total_amount=total_amount,
-            payment_method="Mock Payment",
-            transaction_status="Completed"
-        )
+        try:
+            with db_transaction.atomic():
+                transaction = Transaction.objects.create(
+                    user=request.user,
+                    total_amount=total_amount,
+                    payment_method="Mock Payment",
+                    transaction_status="Completed"
+                )
 
-        for ticket in cart.tickets.all():
-            ticket.purchase_key = str(uuid.uuid4())
-            final_key = f"{str(request.user.user_key)}-{ticket.purchase_key}"
-            qr_code_file = generate_qr_code(final_key)
-            ticket.qr_code.save(f"{final_key}.png", qr_code_file, save=True)
-            ticket.save()
+                for ticket in cart.tickets.all():
+                    ticket.purchase_key = str(uuid.uuid4())
+                    final_key = f"{str(request.user.user_key)}-{ticket.purchase_key}"
+                    qr_code_file = generate_qr_code(final_key)
+                    ticket.qr_code.save(f"{final_key}.png", qr_code_file, save=True)
+                    ticket.save()
 
-            transaction.tickets.add(ticket)
+                    transaction.tickets.add(ticket)
 
-        cart.tickets.clear()
-        return redirect('payment_confirmation')
+                cart.tickets.clear()
+                return redirect('payment_confirmation')
+        except Exception as e:
+            logger.exception("Exception lors du traitement du paiement.")
+            return render(request, 'error.html', {'message': str(e)})
 
     return redirect('checkout')
-
 
 def checkout(request):
     if request.user.is_authenticated:
@@ -224,7 +238,12 @@ def remove_from_cart(request, ticket_id):
 
 @login_required
 def my_orders(request):
-    transactions = Transaction.objects.filter(user=request.user).prefetch_related('tickets')
+    transactions_list = Transaction.objects.filter(user=request.user).order_by('-transaction_date')
+    paginator = Paginator(transactions_list, 8)  # 8 transactions par page
+
+    page_number = request.GET.get('page')
+    transactions = paginator.get_page(page_number)
+
     return render(request, 'my_orders.html', {'transactions': transactions})
 
 @login_required

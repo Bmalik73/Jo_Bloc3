@@ -15,7 +15,7 @@
                     <a href="{% url 'remove_from_cart' ticket.id %}" class="text-red-600 hover:text-red-800">
                         <i class="fas fa-trash"></i> Retirer
                     </a>
-                    <a href="{% url 'add_to_cart' ticket.offer.id %}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">
+                    <a href="{% url 'add_to_cart' ticket.offer.id %}" class="add-to-cart bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">
                         <i class="fas fa-cart-plus mr-2"></i> Ajouter un autre
                     </a>
                 </div>
@@ -32,7 +32,7 @@
                     <a href="{% url 'remove_from_cart' offer.id %}" class="text-red-600 hover:text-red-800">
                         <i class="fas fa-trash"></i> Retirer
                     </a>
-                    <a href="{% url 'add_to_cart' offer.id %}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">
+                    <a href="{% url 'add_to_cart' offer.id %}" class="add-to-cart bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md">
                         <i class="fas fa-cart-plus mr-2"></i> Ajouter un autre
                     </a>
                 </div>

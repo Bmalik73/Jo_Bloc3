@@ -3,21 +3,25 @@
 {% block title %}Mes Commandes{% endblock %}
 
 {% block content %}
-<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg">
-    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Mes Commandes</h2>
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
+    <h2 class="text-4xl font-semibold mb-10 text-center text-gray-800">Mes Commandes</h2>
     {% if transactions %}
         {% for transaction in transactions %}
-        <div class="mb-6 p-6 bg-gray-100 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-gray-700">Transaction du {{ transaction.transaction_date|date:"d/m/Y" }}</h3>
-            <ul>
+        <div class="mb-8 p-6 bg-gray-100 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
+            <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-receipt mr-3 text-blue-500"></i>Transaction du {{ transaction.transaction_date|date:"d/m/Y" }}
+            </h3>
+            <ul class="space-y-4">
                 {% for ticket in transaction.tickets.all %}
-                <li class="flex items-center justify-between p-2 hover:bg-gray-50 rounded-md">
+                <li class="flex items-center justify-between p-4 bg-white hover:bg-gray-50 rounded-lg shadow-sm transition duration-200">
                     <div class="flex-grow">
-                        <p class="text-md text-gray-600">{{ ticket.offer.description }}</p>
+                        <p class="text-lg text-gray-700">{{ ticket.offer.description }}</p>
                     </div>
                     {% if ticket.qr_code %}
-                    <div class="flex-shrink-0 ml-4">
-                        <img src="{{ ticket.qr_code.url }}" alt="QR Code" class="h-20 w-20 object-cover rounded">
+                    <div class="flex-shrink-0 ml-6">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onclick="openModal('{{ ticket.qr_code.url }}')">
+                            Voir QR Code
+                        </button>
                     </div>
                     {% endif %}
                 </li>
@@ -25,8 +29,46 @@
             </ul>
         </div>
         {% endfor %}
+        <!-- Pagination -->
+        <div class="flex justify-center mt-8">
+            <nav class="inline-flex">
+                {% if transactions.has_previous %}
+                <a href="?page={{ transactions.previous_page_number }}" class="px-3 py-2 bg-white border border-gray-300 text-gray-500 hover:bg-gray-50">Précédent</a>
+                {% endif %}
+                <span class="px-3 py-2 bg-white border-t border-b border-gray-300 text-gray-700">{{ transactions.number }} / {{ transactions.paginator.num_pages }}</span>
+                {% if transactions.has_next %}
+                <a href="?page={{ transactions.next_page_number }}" class="px-3 py-2 bg-white border border-gray-300 text-gray-500 hover:bg-gray-50">Suivant</a>
+                {% endif %}
+            </nav>
+        </div>
     {% else %}
-        <p class="text-gray-700">Aucune transaction à afficher.</p>
+        <p class="text-xl text-gray-700 text-center">Aucune transaction à afficher.</p>
     {% endif %}
 </div>
+
+<!-- Modal -->
+<div id="qrModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden justify-center items-center">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="flex justify-end">
+            <button class="text-gray-500 hover:text-gray-700" onclick="closeModal()">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="mt-4">
+            <img id="qrImage" src="" alt="QR Code" class="w-64 h-64 object-cover mx-auto rounded-lg">
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(qrCodeUrl) {
+        document.getElementById('qrImage').src = qrCodeUrl;
+        document.getElementById('qrModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('qrModal').classList.add('hidden');
+        document.getElementById('qrImage').src = '';
+    }
+</script>
 {% endblock %}

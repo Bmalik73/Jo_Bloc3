@@ -5,42 +5,44 @@
 {% block content %}
 <div class="container mx-auto px-4 mt-10">
     <section class="text-center mb-10">
-        <img src="{% static 'images/j.o-header.png' %}" alt="JO 2024 Paris" class="w-full h-auto block mx-auto">
+        <img src="{% static 'images/j.o-header.png' %}" alt="JO 2024 Paris" class="w-full h-auto block mx-auto rounded-lg shadow-md">
     </section>
     
-    <section class="text-center mb-10 bg-indigo-100 py-10 rounded-lg">
-        <p class="text-xl mt-5 text-indigo-700">Votre plateforme officielle pour toutes les informations et réservations liées aux Jeux Olympiques de Paris 2024.</p>
+    <section class="text-center mb-16 bg-indigo-100 py-12 rounded-lg shadow-lg">
+        <p class="text-2xl mt-6 text-black font-semibold mx-auto leading-relaxed max-w-3xl">
+            Votre plateforme officielle pour toutes les informations et réservations liées aux Jeux Olympiques de Paris 2024.
+        </p>
     </section>
 
     <section class="mt-10 mb-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div style="min-height: 350px;" class="transition duration-500 ease-in-out transform hover:scale-105" >
-                <div class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl">
-                    <i class="fas fa-ticket-alt fa-3x"></i> 
+            <div style="min-height: 350px;" class="transition duration-500 ease-in-out transform hover:scale-105">
+                <div class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl flex flex-col items-center">
+                    <i class="fas fa-ticket-alt fa-3x mb-4"></i> 
                     <h2 class="text-2xl mb-2">Billets disponibles</h2>
-                    <p>Achetez vos billets pour vivre l'action en direct.</p>
+                    <p class="text-center">Achetez vos billets pour vivre l'action en direct.</p>
                     <a href="{% url 'list_offers' %}" class="mt-4 inline-block bg-white text-purple-800 font-semibold py-2 px-4 rounded hover:bg-purple-100">
                         Explorer
                     </a>
                 </div>
             </div>
 
-            <div style="min-height: 350px;" class="transition duration-500 ease-in-out transform hover:scale-105" >
-                <div class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl">
-                    <i class="fas fa-calendar-alt fa-3x"></i>
+            <div style="min-height: 350px;" class="transition duration-500 ease-in-out transform hover:scale-105">
+                <div class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl flex flex-col items-center">
+                    <i class="fas fa-calendar-alt fa-3x mb-4"></i>
                     <h2 class="text-2xl mb-2">Événements</h2>
-                    <p>Découvrez les compétitions et cérémonies à ne pas manquer.</p>
+                    <p class="text-center">Découvrez les compétitions et cérémonies à ne pas manquer.</p>
                     <a href="https://olympics.com/cio/celebrer-les-jeux-olympiques" class="inline-block mt-4 bg-white text-teal-800 font-semibold py-2 px-4 rounded hover:bg-teal-100">
                         Découvrir
                     </a>
                 </div>
             </div>
 
-            <div  style="min-height: 350px;" class="transition duration-500 ease-in-out transform hover:scale-105">
-                <div class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl">
-                    <i class="fas fa-info-circle fa-3x"></i> 
+            <div style="min-height: 350px;" class="transition duration-500 ease-in-out transform hover:scale-105">
+                <div class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-6 px-4 rounded-lg shadow-xl flex flex-col items-center">
+                    <i class="fas fa-info-circle fa-3x mb-4"></i> 
                     <h2 class="text-2xl mb-2">Infos pratiques</h2>
-                    <p>Trouvez toutes les informations pour planifier votre visite.</p>
+                    <p class="text-center">Trouvez toutes les informations pour planifier votre visite.</p>
                     <a href="https://olympics.com/fr/paris-2024/spectateurs/informations-pratiques-spectateurs" class="inline-block mt-4 bg-white text-orange-800 font-semibold py-2 px-4 rounded hover:bg-orange-100">
                         Informez-vous
                     </a>
@@ -49,15 +51,14 @@
         </div>
     </section>
 
-   
-    <section class="mb-16 text-center bg-gray-100 py-10 rounded-lg">
-        <h2 class="text-3xl font-bold text-gray-800">À propos des Jeux Olympiques</h2>
-        <p class="text-xl mt-5 text-gray-600 mx-auto leading-relaxed max-w-xl">
+    <section class="mb-16 text-center bg-indigo-100 py-12 rounded-lg shadow-lg">
+        <h2 class="text-4xl font-bold text-blue-900">À propos des Jeux Olympiques</h2>
+        <p class="text-2xl mt-6 text-black font-semibold mx-auto leading-relaxed max-w-3xl">
             Un événement global célébrant l'excellence sportive et la diversité culturelle. Rejoignez-nous pour une expérience mémorable.
         </p>
-        <a href="https://olympics.com/cio/faq/histoire-et-origine-des-jeux/quelle-est-l-origine-des-jeux-olympiques" class="mt-8 inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">
+        <a href="https://olympics.com/cio/faq/histoire-et-origine-des-jeux/quelle-est-l-origine-des-jeux-olympiques" class="mt-8 inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
             Découvrir plus
         </a>
-    </section>
+    </section>    
 </div>
 {% endblock %}
