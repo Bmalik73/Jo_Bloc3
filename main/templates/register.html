@@ -1,59 +1,70 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="mt-4 max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold">Inscription</h2>
-        <form method="post" class="mt-3 space-y-6">
-            {% csrf_token %}
+<div class="mt-4 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold">Inscription</h2>
+    <form method="post" class="mt-3 space-y-6">
+        {% csrf_token %}
 
-            <div class="flex flex-wrap -mx-2">
-                <div class="w-full md:w-1/2 px-2 mb-3">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Adresse électronique :</label>
-                    <input type="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="email" name="email" placeholder="Votre email" required>
-                </div>
-
-                <div class="w-full md:w-1/2 px-2 mb-3">
-                    <label for="username" class="block text-sm font-medium text-gray-700">Nom d’utilisateur :</label>
-                    <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="username" name="username" placeholder="Votre nom d'utilisateur" required>
-                </div>
+        <div class="flex flex-wrap -mx-2">
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="email" class="block text-sm font-medium text-gray-700">Adresse électronique <span class="text-red-500">*</span> :</label>
+                <input type="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="email" name="email" placeholder="Votre email" required>
+                <small class="text-gray-500">Entrez une adresse email valide.</small>
             </div>
 
-            <div class="flex flex-wrap -mx-2">
-                <div class="w-full md:w-1/2 px-2 mb-3">
-                    <label for="first_name" class="block text-sm font-medium text-gray-700">Prénom :</label>
-                    <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="first_name" name="first_name" placeholder="Votre prénom">
-                </div>
-
-                <div class="w-full md:w-1/2 px-2 mb-3">
-                    <label for="last_name" class="block text-sm font-medium text-gray-700">Nom :</label>
-                    <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="last_name" name="last_name" placeholder="Votre nom">
-                </div>
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="username" class="block text-sm font-medium text-gray-700">Nom d’utilisateur <span class="text-red-500">*</span> :</label>
+                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="username" name="username" placeholder="Votre nom d'utilisateur" required>
+                <small class="text-gray-500">Choisissez un nom d'utilisateur unique.</small>
             </div>
-
-            <div class="flex flex-wrap -mx-2">
-                <div class="w-full md:w-1/2 px-2 mb-3">
-                    <label for="phone_number" class="block text-sm font-medium text-gray-700">Numéro de téléphone :</label>
-                    <input type="tel" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="phone_number" name="phone_number" placeholder="Votre numéro de téléphone">
-                </div>
-
-                <div class="w-full md:w-1/2 px-2 mb-3">
-                    <label for="address" class="block text-sm font-medium text-gray-700">Adresse :</label>
-                    <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="address" name="address" placeholder="Votre adresse">
-                </div>
-            </div>
-
-                    <div class="w-full md:w-1/2 px-2 mb-3">
-                        <label for="password1" class="block text-sm font-medium text-gray-700">Mot de passe :</label>
-                        <input type="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="password1" name="password1" placeholder="Votre mot de passe" required>
-                    </div>
-
-                    <div class="w-full md:w-1/2 px-2 mb-3">
-                        <label for="password2" class="block text-sm font-medium text-gray-700">Confirmation du mot de passe :</label>
-                        <input type="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="password2" name="password2" placeholder="Confirmez votre mot de passe" required>
-                    </div>
-                </div>
-
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Inscription</button>
-            </form>
         </div>
+
+        <div class="flex flex-wrap -mx-2">
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="first_name" class="block text-sm font-medium text-gray-700">Prénom :</label>
+                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="first_name" name="first_name" placeholder="Votre prénom">
+                <small class="text-gray-500">Entrez votre prénom.</small>
+            </div>
+
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="last_name" class="block text-sm font-medium text-gray-700">Nom :</label>
+                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="last_name" name="last_name" placeholder="Votre nom">
+                <small class="text-gray-500">Entrez votre nom de famille.</small>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-2">
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="phone_number" class="block text-sm font-medium text-gray-700">Numéro de téléphone :</label>
+                <input type="tel" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="phone_number" name="phone_number" placeholder="Votre numéro de téléphone">
+                <small class="text-gray-500">Format : 0612345678</small>
+            </div>
+
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="address" class="block text-sm font-medium text-gray-700">Adresse :</label>
+                <input type="text" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="address" name="address" placeholder="Votre adresse">
+                <small class="text-gray-500">Entrez votre adresse complète.</small>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-2">
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="password1" class="block text-sm font-medium text-gray-700">Mot de passe <span class="text-red-500">*</span> :</label>
+                <input type="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="password1" name="password1" placeholder="Votre mot de passe" required>
+                <small class="text-gray-500">Doit contenir au moins 8 caractères.</small>
+            </div>
+
+            <div class="w-full md:w-1/2 px-2 mb-3">
+                <label for="password2" class="block text-sm font-medium text-gray-700">Confirmation du mot de passe <span class="text-red-500">*</span> :</label>
+                <input type="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="password2" name="password2" placeholder="Confirmez votre mot de passe" required>
+                <small class="text-gray-500">Les mots de passe doivent correspondre.</small>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-4">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Inscription</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
